@@ -3,10 +3,15 @@ provider:
   name: aws
   region: eu-west-1
   runtime: nodejs12.x
+  profile: clos
 
 functions:
   developers:
     handler: handler.app
+    environment:
+      DB_HOST: ${opt:DB_HOST}
+      DB_USER: ${opt:DB_USER}
+      DB_PASSWORD: ${opt:DB_PASSWORD}
     events:
       - http:
           method: get
