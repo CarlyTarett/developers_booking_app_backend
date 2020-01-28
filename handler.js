@@ -34,6 +34,19 @@ app.get("/developers", function(request, response) {
 });
 
 // POST /developers
+app.post("/developers", function(request, response) {
+  const newDeveloper = request.body;
+  connection.query("INSERT INTO Developers SET ?", [newDeveloper], function (err, data) {
+    if (err) {
+      response.status(500).json({
+        error: err
+      });
+    } else {
+      newDeveloper.id = data.insertId;
+      response.status(201).json(newDeveloper);
+    }
+  });
+});
 
 // PUT /developers
 app.put("/developers/:id", function(request, response) {
