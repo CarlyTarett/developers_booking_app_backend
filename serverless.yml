@@ -21,6 +21,10 @@ functions:
           method: put
           path: developers/{id}
           cors: true
+      - http:
+          method: delete
+          path: developers/{id}
+          cors: true
 # GET
 # dkfjkdsf.aws.amazon.com/developers
 

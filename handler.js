@@ -60,5 +60,17 @@ app.put("/developers/:id", function(request, response) {
 });
 
 // DELETE /developers
+app.delete("/developers/:id", function(request, response) {
+  const id = request.params.id;
+  connection.query("DELETE FROM Developers WHERE id=?", [id], function(err) {
+    if (err) {
+      response.status(500).json({
+        error: err
+      });
+    } else {
+      response.sendStatus(200);
+    }
+  });
+});
 
 module.exports.app = serverlessHttp(app);
