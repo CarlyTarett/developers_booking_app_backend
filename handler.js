@@ -18,6 +18,7 @@ const connection = mysql.createConnection({
 // GET /developers
 
 app.get("/developers", function(request, response) {
+  console.log("RECEIVED REQUEST FOR GET /developers");
   // request is an object with lots of info about the request
   // response is an object which allows us to define what kind of response we want to send back
   connection.query("SELECT * FROM Developers", function(err, data) {
@@ -35,8 +36,12 @@ app.get("/developers", function(request, response) {
 
 // POST /developers
 app.post("/developers", function(request, response) {
+  console.log("RECEIVED REQUEST FOR POST /developers", { data: request.body });
   const newDeveloper = request.body;
-  connection.query("INSERT INTO Developers SET ?", [newDeveloper], function (err, data) {
+  connection.query("INSERT INTO Developers SET ?", [newDeveloper], function(
+    err,
+    data
+  ) {
     if (err) {
       response.status(500).json({
         error: err
@@ -56,6 +61,9 @@ app.put("/developers/:id", function(request, response) {
   */
   const updatedDeveloper = request.body;
   const id = request.params.id;
+  console.log(`RECEIVED REQUEST FOR PUT /developers/${id}`, {
+    data: updatedDeveloper
+  });
 
   // SQL injection
   // Escape queries
